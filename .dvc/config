@@ -1,0 +1,4 @@
+[core]
+    remote = remote
+['remote "remote"']
+    url = C:\Users\hp\AppData\Local\Temp\mini_project
