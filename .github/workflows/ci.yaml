@@ -1,4 +1,31 @@
-name: ci pipeline
+# name: ci pipeline
+
+# on: push
+
+# jobs:
+#     project-testing:
+#         runs-on: ubuntu-latest
+
+#         steps:
+#             - name: checkout code
+#               uses: actions/checkout@v3
+
+#             - name: setup python
+#               uses: actions/setup-python@v2
+#               with:
+#                 python-version: "3.10"
+
+#             - name: install dependencies
+#               env:
+#                 DAGSHUB_PAT: ${{ secrets.DAGSHUB_PAT }}
+#               run:
+#                 pip install -r requirements.txt
+
+#             - name: run pipeline 
+#               run: |
+#                  dvc repro
+
+name: CI Pipeline
 
 on: push
 
@@ -7,21 +34,24 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - name: checkout code
+            - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: setup python
+            - name: Setup Python
               uses: actions/setup-python@v2
               with:
                 python-version: "3.10"
 
-            - name: install dependencies
+            - name: Install dependencies
+              run: pip install -r requirements.txt
+
+            - name: Set DAGSHUB_PAT as Environment Variable
               env:
                 DAGSHUB_PAT: ${{ secrets.DAGSHUB_PAT }}
-              run:
-                pip install -r requirements.txt
+              run: echo "DAGSHUB_PAT=${{ secrets.DAGSHUB_PAT }}" >> $GITHUB_ENV
 
-            - name: run pipeline 
-              run: |
-                 dvc repro
+            - name: Verify Environment Variable
+              run: echo "DAGSHUB_PAT is set!"
 
+            - name: Run Pipeline
+              run: dvc repro
