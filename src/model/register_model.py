@@ -21,8 +21,8 @@ dagshub_token = os.getenv("DAGSHUB_PAT")
 # os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
 
 
-if not dagshub_token:
-    raise EnvironmentError("DAGSHUB_PAT environment variable is not set")
+# if not dagshub_token:
+#     raise EnvironmentError("DAGSHUB_PAT environment variable is not set")
 
 dagshub_url = "https://dagshub.com"
 repo_owner = "Nikhil1998-Mogre"
